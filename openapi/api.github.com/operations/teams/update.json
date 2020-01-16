@@ -1,6 +1,6 @@
 {
   "summary": "Edit team",
-  "description": "To edit a team, the authenticated user must either be an organization owner or a team maintainer.\n\n**Note:** With nested teams, the `privacy` for parent teams cannot be `secret`.",
+  "description": "To edit a team, the authenticated user must either be an organization owner or a team maintainer.\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/:org_id/team/:team_id`.",
   "operationId": "teams/update",
   "tags": ["teams"],
   "externalDocs": {
@@ -18,11 +18,18 @@
       }
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     }
   ],
   "responses": {
@@ -137,13 +144,16 @@
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -XPATCH \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/teams/42 \\\n  -d '{\"name\":\"name\"}'"
+      "source": "curl \\\n  -XPATCH \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG \\\n  -d '{\"name\":\"name\"}'"
     },
     {
       "lang": "JS",
-      "source": "octokit.teams.update({\n  team_id: 42,\n  name: 'name'\n})"
+      "source": "octokit.teams.update({\n  org: 'org',\n  team_slug: 'team_slug',\n  name: 'name'\n})"
     },
-    { "lang": "Ruby", "source": "octokit.update(\n  42,\n  'name'\n)" }
+    {
+      "lang": "Ruby",
+      "source": "octokit.update(\n  'org',\n  'team_slug',\n  'name'\n)"
+    }
   ],
   "x-github": {
     "legacy": false,
@@ -168,7 +178,7 @@
             },
             "privacy": {
               "type": "string",
-              "description": "The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. The options are:  \n**For a non-nested team:**  \n\\* `secret` - only visible to organization owners and members of this team.  \n\\* `closed` - visible to all members of this organization.  \n**For a parent or child team:**  \n\\* `closed` - visible to all members of this organization.",
+              "description": "The level of privacy this team should have. Editing teams without specifying this parameter leaves `privacy` intact. When a team is nested, the `privacy` for parent teams cannot be `secret`. The options are:  \n**For a non-nested team:**  \n\\* `secret` - only visible to organization owners and members of this team.  \n\\* `closed` - visible to all members of this organization.  \n**For a parent or child team:**  \n\\* `closed` - visible to all members of this organization.",
               "enum": ["secret", "closed"]
             },
             "permission": {

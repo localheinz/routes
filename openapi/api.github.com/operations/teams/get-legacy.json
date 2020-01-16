@@ -1,11 +1,11 @@
 {
-  "summary": "Get team",
-  "description": "",
-  "operationId": "teams/get",
+  "summary": "Get team (Legacy)",
+  "description": "**Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the [`Get team by name`](https://developer.github.com/v3/teams/#get-team-by-name) endpoint.",
+  "operationId": "teams/get-legacy",
   "tags": ["teams"],
   "externalDocs": {
     "description": "API method documentation",
-    "url": "https://developer.github.com/v3/teams/#get-team"
+    "url": "https://developer.github.com/v3/teams/#get-team-legacy"
   },
   "parameters": [
     {
@@ -139,14 +139,15 @@
       "lang": "Shell",
       "source": "curl \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/teams/42"
     },
-    { "lang": "JS", "source": "octokit.teams.get({\n  team_id: 42\n})" },
-    { "lang": "Ruby", "source": "octokit.get(\n  42\n)" }
+    { "lang": "JS", "source": "octokit.teams.getLegacy({\n  team_id: 42\n})" },
+    { "lang": "Ruby", "source": "octokit.legacy(\n  42\n)" }
   ],
   "x-github": {
-    "legacy": false,
+    "legacy": true,
     "enabledForApps": true,
     "githubCloudOnly": false,
     "previews": []
   },
-  "x-changes": []
+  "x-changes": [],
+  "deprecated": true
 }

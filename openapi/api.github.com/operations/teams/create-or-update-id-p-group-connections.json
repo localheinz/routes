@@ -1,6 +1,6 @@
 {
   "summary": "Create or update IdP group connections",
-  "description": "Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\nCreates, updates, or removes a connection between a team and an IdP group. When adding groups to a team, you must include all new and existing groups to avoid replacing existing groups with the new ones. Specifying an empty `groups` array will remove all connections for a team.",
+  "description": "Team synchronization is available for organizations using GitHub Enterprise Cloud. For more information, see [GitHub's products](https://help.github.com/github/getting-started-with-github/githubs-products) in the GitHub Help documentation.\n\nCreates, updates, or removes a connection between a team and an IdP group. When adding groups to a team, you must include all new and existing groups to avoid replacing existing groups with the new ones. Specifying an empty `groups` array will remove all connections for a team.\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/:org_id/team/:team_id/team-sync/group-mappings`.",
   "operationId": "teams/create-or-update-id-p-group-connections",
   "tags": ["teams"],
   "externalDocs": {
@@ -18,11 +18,18 @@
       }
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     }
   ],
   "responses": {
@@ -57,15 +64,15 @@
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -XPATCH \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/teams/42/team-sync/group-mappings \\\n  -d '{\"groups\":[{\"group_id\":\"group_id\",\"group_name\":\"group_name\",\"group_description\":\"group_description\"}]}'"
+      "source": "curl \\\n  -XPATCH \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG/team-sync/group-mappings \\\n  -d '{\"groups\":[{\"group_id\":\"group_id\",\"group_name\":\"group_name\",\"group_description\":\"group_description\"}]}'"
     },
     {
       "lang": "JS",
-      "source": "octokit.teams.createOrUpdateIdPGroupConnections({\n  team_id: 42,\n  groups: [\n    {\n      group_id: 'group_id',\n      group_name: 'group_name',\n      group_description: 'group_description'\n    }\n  ]\n})"
+      "source": "octokit.teams.createOrUpdateIdPGroupConnections({\n  org: 'org',\n  team_slug: 'team_slug',\n  groups: [\n    {\n      group_id: 'group_id',\n      group_name: 'group_name',\n      group_description: 'group_description'\n    }\n  ]\n})"
     },
     {
       "lang": "Ruby",
-      "source": "octokit.create_or_update_id_p_group_connections(\n  42,\n  [\n    {\n      group_id: 'group_id',\n      group_name: 'group_name',\n      group_description: 'group_description'\n    }\n  ]\n)"
+      "source": "octokit.create_or_update_id_p_group_connections(\n  'org',\n  'team_slug',\n  [\n    {\n      group_id: 'group_id',\n      group_name: 'group_name',\n      group_description: 'group_description'\n    }\n  ]\n)"
     }
   ],
   "x-github": {

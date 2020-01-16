@@ -1,6 +1,6 @@
 {
   "summary": "List team projects",
-  "description": "Lists the organization projects for a team.",
+  "description": "Lists the organization projects for a team.\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/projects`.",
   "operationId": "teams/list-projects",
   "tags": ["teams"],
   "externalDocs": {
@@ -19,11 +19,18 @@
       "required": true
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     },
     {
       "name": "per_page",
@@ -142,13 +149,16 @@
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -H\"Accept: application/vnd.github.inertia-preview+json\" \\\n  https://api.github.com/teams/42/projects"
+      "source": "curl \\\n  -H\"Accept: application/vnd.github.inertia-preview+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG/projects"
     },
     {
       "lang": "JS",
-      "source": "octokit.teams.listProjects({\n  team_id: 42\n})"
+      "source": "octokit.teams.listProjects({\n  org: 'org',\n  team_slug: 'team_slug'\n})"
     },
-    { "lang": "Ruby", "source": "octokit.projects(\n  42\n)" }
+    {
+      "lang": "Ruby",
+      "source": "octokit.projects(\n  'org',\n  'team_slug'\n)"
+    }
   ],
   "x-github": {
     "legacy": false,

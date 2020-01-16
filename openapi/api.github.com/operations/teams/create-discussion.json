@@ -1,6 +1,6 @@
 {
   "summary": "Create a discussion",
-  "description": "Creates a new discussion post on a team's page. OAuth access tokens require the `write:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).\n\nThis endpoint triggers [notifications](https://help.github.com/articles/about-notifications/). Creating content too quickly using this endpoint may result in abuse rate limiting. See \"[Abuse rate limits](https://developer.github.com/v3/#abuse-rate-limits)\" and \"[Dealing with abuse rate limits](https://developer.github.com/v3/guides/best-practices-for-integrators/#dealing-with-abuse-rate-limits)\" for details.",
+  "description": "Creates a new discussion post on a team's page. OAuth access tokens require the `write:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).\n\nThis endpoint triggers [notifications](https://help.github.com/articles/about-notifications/). Creating content too quickly using this endpoint may result in abuse rate limiting. See \"[Abuse rate limits](https://developer.github.com/v3/#abuse-rate-limits)\" and \"[Dealing with abuse rate limits](https://developer.github.com/v3/guides/best-practices-for-integrators/#dealing-with-abuse-rate-limits)\" for details.\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `POST /organizations/:org_id/team/:team_id/discussions`.",
   "operationId": "teams/create-discussion",
   "tags": ["teams"],
   "externalDocs": {
@@ -18,11 +18,18 @@
       }
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     }
   ],
   "responses": {
@@ -142,15 +149,15 @@
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -XPOST \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/teams/42/discussions \\\n  -d '{\"title\":\"title\",\"body\":\"body\"}'"
+      "source": "curl \\\n  -XPOST \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG/discussions \\\n  -d '{\"title\":\"title\",\"body\":\"body\"}'"
     },
     {
       "lang": "JS",
-      "source": "octokit.teams.createDiscussion({\n  team_id: 42,\n  title: 'title',\n  body: 'body'\n})"
+      "source": "octokit.teams.createDiscussion({\n  org: 'org',\n  team_slug: 'team_slug',\n  title: 'title',\n  body: 'body'\n})"
     },
     {
       "lang": "Ruby",
-      "source": "octokit.create_discussion(\n  42,\n  'title',\n  'body'\n)"
+      "source": "octokit.create_discussion(\n  'org',\n  'team_slug',\n  'title',\n  'body'\n)"
     }
   ],
   "x-github": {

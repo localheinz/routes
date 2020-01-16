@@ -1,6 +1,6 @@
 {
   "summary": "List child teams",
-  "description": "",
+  "description": "Lists the child teams of the team requested by `:team_slug`.\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/teams`.\n\n",
   "operationId": "teams/list-child",
   "tags": ["teams"],
   "externalDocs": {
@@ -18,11 +18,18 @@
       }
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     },
     {
       "name": "per_page",
@@ -114,10 +121,13 @@
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/teams/42/teams"
+      "source": "curl \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG/teams"
     },
-    { "lang": "JS", "source": "octokit.teams.listChild({\n  team_id: 42\n})" },
-    { "lang": "Ruby", "source": "octokit.child(\n  42\n)" }
+    {
+      "lang": "JS",
+      "source": "octokit.teams.listChild({\n  org: 'org',\n  team_slug: 'team_slug'\n})"
+    },
+    { "lang": "Ruby", "source": "octokit.child(\n  'org',\n  'team_slug'\n)" }
   ],
   "x-github": {
     "legacy": false,

@@ -1,11 +1,11 @@
 {
-  "summary": "Delete a comment",
-  "description": "Deletes a comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).",
+  "summary": "Delete a comment (Legacy)",
+  "description": "**Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Delete a comment`](https://developer.github.com/v3/teams/discussion_comments/#delete-a-comment) endpoint.\n\nDeletes a comment on a team discussion. OAuth access tokens require the `write:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).",
   "operationId": "teams/delete-discussion-comment",
   "tags": ["teams"],
   "externalDocs": {
     "description": "API method documentation",
-    "url": "https://developer.github.com/v3/teams/discussion_comments/#delete-a-comment"
+    "url": "https://developer.github.com/v3/teams/discussion_comments/#delete-a-comment-legacy"
   },
   "parameters": [
     {
@@ -60,5 +60,6 @@
     "githubCloudOnly": false,
     "previews": []
   },
-  "x-changes": []
+  "x-changes": [],
+  "deprecated": true
 }

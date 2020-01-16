@@ -1,6 +1,6 @@
 {
   "summary": "Delete team",
-  "description": "To delete a team, the authenticated user must be an organization owner or team maintainer.\n\nIf you are an organization owner, deleting a parent team will delete all of its child teams as well.",
+  "description": "To delete a team, the authenticated user must be an organization owner or team maintainer.\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `DELETE /organizations/:org_id/team/:team_id`.\n\nIf you are an organization owner, deleting a parent team will delete all of its child teams as well.",
   "operationId": "teams/delete",
   "tags": ["teams"],
   "externalDocs": {
@@ -18,21 +18,31 @@
       }
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     }
   ],
   "responses": { "204": { "description": "Empty response" } },
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -XDELETE \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/teams/42"
+      "source": "curl \\\n  -XDELETE \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG"
     },
-    { "lang": "JS", "source": "octokit.teams.delete({\n  team_id: 42\n})" },
-    { "lang": "Ruby", "source": "octokit.delete(\n  42\n)" }
+    {
+      "lang": "JS",
+      "source": "octokit.teams.delete({\n  org: 'org',\n  team_slug: 'team_slug'\n})"
+    },
+    { "lang": "Ruby", "source": "octokit.delete(\n  'org',\n  'team_slug'\n)" }
   ],
   "x-github": {
     "legacy": false,

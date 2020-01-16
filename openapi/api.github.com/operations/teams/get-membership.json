@@ -1,6 +1,6 @@
 {
   "summary": "Get team membership",
-  "description": "Team members will include the members of child teams.\n\nTo get a user's membership with a team, the team must be visible to the authenticated user.\n\n**Note:** The `role` for organization owners returns as `maintainer`. For more information about `maintainer` roles, see [Create team](https://developer.github.com/v3/teams#create-team).",
+  "description": "Team members will include the members of child teams.\n\nTo get a user's membership with a team, the team must be visible to the authenticated user.\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/memberships/:username`.\n\n**Note:** The `role` for organization owners returns as `maintainer`. For more information about `maintainer` roles, see [Create team](https://developer.github.com/v3/teams#create-team).",
   "operationId": "teams/get-membership",
   "tags": ["teams"],
   "externalDocs": {
@@ -18,11 +18,18 @@
       }
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     },
     {
       "name": "username",
@@ -73,18 +80,22 @@
           }
         }
       }
-    }
+    },
+    "404": { "description": "Response if user has no team membership" }
   },
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/teams/42/memberships/USERNAME"
+      "source": "curl \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG/memberships/USERNAME"
     },
     {
       "lang": "JS",
-      "source": "octokit.teams.getMembership({\n  team_id: 42,\n  username: 'username'\n})"
+      "source": "octokit.teams.getMembership({\n  org: 'org',\n  team_slug: 'team_slug',\n  username: 'username'\n})"
     },
-    { "lang": "Ruby", "source": "octokit.membership(\n  42,\n  'username'\n)" }
+    {
+      "lang": "Ruby",
+      "source": "octokit.membership(\n  'org',\n  'team_slug',\n  'username'\n)"
+    }
   ],
   "x-github": {
     "legacy": false,

@@ -1,6 +1,6 @@
 {
   "summary": "List team members",
-  "description": "Team members will include the members of child teams.",
+  "description": "Team members will include the members of child teams.\n\nTo list members in a team, the team must be visible to the authenticated user.",
   "operationId": "teams/list-members",
   "tags": ["teams"],
   "externalDocs": {
@@ -18,11 +18,18 @@
       }
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     },
     {
       "name": "role",
@@ -108,13 +115,13 @@
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/teams/42/members"
+      "source": "curl \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG/members"
     },
     {
       "lang": "JS",
-      "source": "octokit.teams.listMembers({\n  team_id: 42\n})"
+      "source": "octokit.teams.listMembers({\n  org: 'org',\n  team_slug: 'team_slug'\n})"
     },
-    { "lang": "Ruby", "source": "octokit.members(\n  42\n)" }
+    { "lang": "Ruby", "source": "octokit.members(\n  'org',\n  'team_slug'\n)" }
   ],
   "x-github": {
     "legacy": false,

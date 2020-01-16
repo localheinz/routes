@@ -1,11 +1,11 @@
 {
-  "summary": "Get a single comment",
-  "description": "Get a specific comment on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).",
+  "summary": "Get a single comment (Legacy)",
+  "description": "**Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Get a single comment`](https://developer.github.com/v3/teams/discussion_comments/#get-a-single-comment) endpoint.\n\nGet a specific comment on a team discussion. OAuth access tokens require the `read:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).",
   "operationId": "teams/get-discussion-comment",
   "tags": ["teams"],
   "externalDocs": {
     "description": "API method documentation",
-    "url": "https://developer.github.com/v3/teams/discussion_comments/#get-a-single-comment"
+    "url": "https://developer.github.com/v3/teams/discussion_comments/#get-a-single-comment-legacy"
   },
   "parameters": [
     {
@@ -169,5 +169,6 @@
       }
     ]
   },
-  "x-changes": []
+  "x-changes": [],
+  "deprecated": true
 }

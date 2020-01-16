@@ -1,6 +1,6 @@
 {
   "summary": "Get team by name",
-  "description": "Gets a team using the team's `slug`. GitHub generates the `slug` from the team `name`.",
+  "description": "Gets a team using the team's `slug`. GitHub generates the `slug` from the team `name`.\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id`.",
   "operationId": "teams/get-by-name",
   "tags": ["teams"],
   "externalDocs": {

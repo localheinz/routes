@@ -1,6 +1,6 @@
 {
   "summary": "Add or update team project",
-  "description": "Adds an organization project to a team. To add a project to a team or update the team's permission on a project, the authenticated user must have `admin` permissions for the project. The project and team must be part of the same organization.",
+  "description": "Adds an organization project to a team. To add a project to a team or update the team's permission on a project, the authenticated user must have `admin` permissions for the project. The project and team must be part of the same organization.\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `PUT /organizations/:org_id/team/:team_id/projects/:project_id`.",
   "operationId": "teams/add-or-update-project",
   "tags": ["teams"],
   "externalDocs": {
@@ -19,11 +19,18 @@
       "required": true
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     },
     {
       "name": "project_id",
@@ -61,15 +68,15 @@
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -XPUT \\\n  -H\"Accept: application/vnd.github.inertia-preview+json\" \\\n  https://api.github.com/teams/42/projects/42 \\\n  -d '{\"permission\":\"permission\"}'"
+      "source": "curl \\\n  -XPUT \\\n  -H\"Accept: application/vnd.github.inertia-preview+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG/projects/42 \\\n  -d '{\"permission\":\"permission\"}'"
     },
     {
       "lang": "JS",
-      "source": "octokit.teams.addOrUpdateProject({\n  team_id: 42,\n  project_id: 42,\n  permission: 'permission'\n})"
+      "source": "octokit.teams.addOrUpdateProject({\n  org: 'org',\n  team_slug: 'team_slug',\n  project_id: 42,\n  permission: 'permission'\n})"
     },
     {
       "lang": "Ruby",
-      "source": "octokit.add_or_update_project(\n  42,\n  42,\n  'permission'\n)"
+      "source": "octokit.add_or_update_project(\n  'org',\n  'team_slug',\n  42,\n  'permission'\n)"
     }
   ],
   "x-github": {

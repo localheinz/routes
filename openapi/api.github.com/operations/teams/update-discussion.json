@@ -1,6 +1,6 @@
 {
   "summary": "Edit a discussion",
-  "description": "Edits the title and body text of a discussion post. Only the parameters you provide are updated. OAuth access tokens require the `write:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).",
+  "description": "Edits the title and body text of a discussion post. Only the parameters you provide are updated. OAuth access tokens require the `write:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `PATCH /organizations/:org_id/team/:team_id/discussions/:discussion_number`.",
   "operationId": "teams/update-discussion",
   "tags": ["teams"],
   "externalDocs": {
@@ -18,11 +18,18 @@
       }
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "orgs",
+      "description": "orgs parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     },
     {
       "name": "discussion_number",
@@ -149,15 +156,15 @@
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -XPATCH \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/teams/42/discussions/42 \\\n  -d '{\"title\":\"title\"}'"
+      "source": "curl \\\n  -XPATCH \\\n  -H\"Accept: application/vnd.github.v3+json\" \\\n  https://api.github.com/orgs/ORGS/team/TEAM_SLUG/discussions/42 \\\n  -d '{\"title\":\"title\"}'"
     },
     {
       "lang": "JS",
-      "source": "octokit.teams.updateDiscussion({\n  team_id: 42,\n  discussion_number: 42,\n  title: 'title'\n})"
+      "source": "octokit.teams.updateDiscussion({\n  orgs: 'orgs',\n  team_slug: 'team_slug',\n  discussion_number: 42,\n  title: 'title'\n})"
     },
     {
       "lang": "Ruby",
-      "source": "octokit.update_discussion(\n  42,\n  42,\n  'title'\n)"
+      "source": "octokit.update_discussion(\n  'orgs',\n  'team_slug',\n  42,\n  'title'\n)"
     }
   ],
   "x-github": {

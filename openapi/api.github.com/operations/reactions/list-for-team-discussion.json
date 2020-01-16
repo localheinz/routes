@@ -1,6 +1,6 @@
 {
   "summary": "List reactions for a team discussion",
-  "description": "List the reactions to a [team discussion](https://developer.github.com/v3/teams/discussions/). OAuth access tokens require the `read:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).",
+  "description": "List the reactions to a [team discussion](https://developer.github.com/v3/teams/discussions/). OAuth access tokens require the `read:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).\n\n**Note:** You can also specify a team by `org_id` and `team_id` using the route `GET /organizations/:org_id/team/:team_id/discussions/:discussion_number/reactions`.",
   "operationId": "reactions/list-for-team-discussion",
   "tags": ["reactions"],
   "externalDocs": {
@@ -19,11 +19,18 @@
       "required": true
     },
     {
-      "name": "team_id",
-      "description": "team_id parameter",
+      "name": "org",
+      "description": "org parameter",
       "in": "path",
       "required": true,
-      "schema": { "type": "integer" }
+      "schema": { "type": "string" }
+    },
+    {
+      "name": "team_slug",
+      "description": "team_slug parameter",
+      "in": "path",
+      "required": true,
+      "schema": { "type": "string" }
     },
     {
       "name": "discussion_number",
@@ -139,13 +146,16 @@
   "x-code-samples": [
     {
       "lang": "Shell",
-      "source": "curl \\\n  -H\"Accept: application/vnd.github.squirrel-girl-preview+json\" \\\n  https://api.github.com/teams/42/discussions/42/reactions"
+      "source": "curl \\\n  -H\"Accept: application/vnd.github.squirrel-girl-preview+json\" \\\n  https://api.github.com/orgs/ORG/teams/TEAM_SLUG/discussions/42/reactions"
     },
     {
       "lang": "JS",
-      "source": "octokit.reactions.listForTeamDiscussion({\n  team_id: 42,\n  discussion_number: 42\n})"
+      "source": "octokit.reactions.listForTeamDiscussion({\n  org: 'org',\n  team_slug: 'team_slug',\n  discussion_number: 42\n})"
     },
-    { "lang": "Ruby", "source": "octokit.for_team_discussion(\n  42,\n  42\n)" }
+    {
+      "lang": "Ruby",
+      "source": "octokit.for_team_discussion(\n  'org',\n  'team_slug',\n  42\n)"
+    }
   ],
   "x-github": {
     "legacy": false,

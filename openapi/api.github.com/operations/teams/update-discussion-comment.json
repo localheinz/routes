@@ -1,11 +1,11 @@
 {
-  "summary": "Edit a comment",
-  "description": "Edits the body text of a discussion comment. OAuth access tokens require the `write:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).",
+  "summary": "Edit a comment (Legacy)",
+  "description": "**Deprecation Notice:** This endpoint route is deprecated and will be removed from the Teams API. We recommend migrating your existing code to use the new [`Edit a comment`](https://developer.github.com/v3/teams/discussion_comments/#edit-a-comment) endpoint.\n\nEdits the body text of a discussion comment. OAuth access tokens require the `write:discussion` [scope](https://developer.github.com/apps/building-oauth-apps/understanding-scopes-for-oauth-apps/).",
   "operationId": "teams/update-discussion-comment",
   "tags": ["teams"],
   "externalDocs": {
     "description": "API method documentation",
-    "url": "https://developer.github.com/v3/teams/discussion_comments/#edit-a-comment"
+    "url": "https://developer.github.com/v3/teams/discussion_comments/#edit-a-comment-legacy"
   },
   "parameters": [
     {
@@ -186,5 +186,6 @@
         "example": { "body": "Do you like pineapples?" }
       }
     }
-  }
+  },
+  "deprecated": true
 }
